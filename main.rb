@@ -9,11 +9,11 @@ Dir.glob("./models/*.rb").each { |file| require file}
 
 include ApplicationHelper
 
-before '/login/?' do 
+before '/login/?' do
 	redirect to '/' unless current_user.nil?
 end
 
-before '/signin/?' do 
+before '/signin/?' do
 	redirect to '/' unless current_user.nil?
 end
 
@@ -21,7 +21,7 @@ before do
 	@user ||= current_user
 end
 
-get '/' do
+get '/?' do
 	unless @user.nil?
 		@posts = Post.where(user_id: @user.id)
 	end
@@ -61,7 +61,7 @@ post '/signin/?' do
 
 	User.create(name: @name, email: @email, password: @pass, age: @age)
 
-	redirect to '/' 
+	redirect to '/'
 end
 
 get '/logout/?' do
