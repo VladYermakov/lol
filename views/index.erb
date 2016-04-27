@@ -1,0 +1,14 @@
+<h1>Hello, World!</h1>
+<p>This is Sinatra Application</p>
+<% unless @user.nil? %>
+	<div class="span8">
+		<% if @user.posts.any? %>
+			<h3> Posts (<%= @user.posts.count %>) </h3>
+			<ol class="posts">
+				<%= erb :_posts %>
+			</ol>
+		<% end %>
+	</div>
+<% else %>
+	<h1>Hello. Welcome to my site</h1>
+<% end %>

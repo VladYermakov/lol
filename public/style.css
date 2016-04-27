@@ -1,0 +1,15 @@
+h1 {
+	color: gold;
+}
+
+.right {
+	align: right;
+}
+
+header {
+	text-align: right;
+	margin: 20px;
+}
+.content {
+	margin-left: 20px;
+}
