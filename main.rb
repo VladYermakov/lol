@@ -1,3 +1,4 @@
+#\ -o yermakov.com -p 8080
 require "sinatra"
 require "sinatra/cookies"
 require "sinatra/activerecord"
@@ -8,15 +9,19 @@ Dir.glob("./models/*.rb").each { |file| require file}
 
 include ApplicationHelper
 
-before '/login/?' do 
+before '/login/?' do
 	redirect to '/' unless current_user.nil?
 end
 
-before '/signin/?' do 
+before '/signin/?' do
 	redirect to '/' unless current_user.nil?
 end
 
-get '/' do
+before do
+	@user ||= current_user
+end
+
+get '/?' do
 	unless @user.nil?
 		@posts = Post.where(user_id: @user.id)
 	end
@@ -35,7 +40,7 @@ post '/login/?' do
 	@db_pass = @user.password
 	if @pass == @db_pass
 		cookies[:current_user] = @email
-		erb :logined
+		redirect to('/')
 	else
 		redirect to("/login")
 	end
@@ -56,7 +61,7 @@ post '/signin/?' do
 
 	User.create(name: @name, email: @email, password: @pass, age: @age)
 
-	redirect to '/' 
+	redirect to '/'
 end
 
 get '/logout/?' do
