@@ -1,3 +1,4 @@
+#\ -o yermakov.com -p 8080
 require "sinatra"
 require "sinatra/cookies"
 require "sinatra/activerecord"
@@ -14,6 +15,10 @@ end
 
 before '/signin/?' do 
 	redirect to '/' unless current_user.nil?
+end
+
+before do
+	@user ||= current_user
 end
 
 get '/' do
@@ -35,7 +40,7 @@ post '/login/?' do
 	@db_pass = @user.password
 	if @pass == @db_pass
 		cookies[:current_user] = @email
-		erb :logined
+		redirect to('/')
 	else
 		redirect to("/login")
 	end
