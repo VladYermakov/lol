@@ -11,7 +11,7 @@
 <body>
 	<header>
 		<% unless current_user.nil? %>
-			<p><%= @name %> <a href="/logout">Log Out</a></p>
+			<p><%= current_user.name.capitalize %> <a href="/logout">Log Out</a></p>
 		<% else %>
 			<p><a href="/login">Login</a> or <a href="/signin">Sign In</a></p>
 		<% end %>
